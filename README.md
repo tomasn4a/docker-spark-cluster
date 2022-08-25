@@ -2,7 +2,9 @@
 
 # General
 
-A simple spark standalone cluster for your testing environment purposses. A *docker-compose up* away from you solution for your spark development environment.
+A simple spark standalone cluster for your testing environment purposses. A
+*docker-compose up* away from you solution for your spark development
+environment.
 
 The Docker compose will create the following containers:
 
@@ -63,7 +65,9 @@ http://localhost:9092/
 
 # Resource Allocation 
 
-This cluster is shipped with three workers and one spark master, each of these has a particular set of resource allocation(basically RAM & cpu cores allocation).
+This cluster is shipped with three workers and one spark master, each of these
+has a particular set of resource allocation(basically RAM & cpu cores
+allocation).
 
 * The default CPU cores allocation for each spark worker is 1 core.
 
@@ -77,7 +81,8 @@ This cluster is shipped with three workers and one spark master, each of these h
 
 # Binded Volumes
 
-To make app running easier I've shipped two volume mounts described in the following chart:
+To make app running easier I've shipped two volume mounts described in the
+following chart:
 
 Host Mount|Container Mount|Purposse
 ---|---|---
@@ -91,7 +96,10 @@ This is basically a dummy DFS created from docker Volumes...(maybe not...)
 
 ## NY Bus Stops Data [Pyspark]
 
-This programs just loads archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and apply basic filters using spark sql, the result are persisted into a postgresql table.
+This programs just loads archived data from 
+[MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html)
+and apply basic filters using spark sql, the result are persisted into a
+postgresql table.
 
 The loaded table will contain the following structure:
 
@@ -113,7 +121,10 @@ To submit the app connect to one of the workers or the master and execute:
 
 ## MTA Bus Analytics[Scala]
 
-This program takes the archived data from [MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html) and make some aggregations on it, the calculated results are persisted on postgresql tables.
+This program takes the archived data from
+[MTA Bus Time](http://web.mta.info/developers/MTA-Bus-Time-historical-data.html)
+and make some aggregations on it, the calculated results are persisted on
+postgresql tables.
 
 Each persisted table correspond to a particullar aggregation:
 
@@ -140,30 +151,37 @@ To submit the app connect to one of the workers or the master and execute:
 /opt/spark-apps/mta-processing.jar
 ```
 
-You will notice on the spark-ui a driver program and executor program running(In scala we can use deploy-mode cluster)
+You will notice on the spark-ui a driver program and executor program running(In
+scala we can use deploy-mode cluster)
 
 ![alt text](./articles/images/stats-app.png "Spark UI with scala program running")
 
 
 # Summary
 
-* We compiled the necessary docker image to run spark master and worker containers.
+* We compiled the necessary docker image to run spark master and worker
+  containers.
 
-* We created a spark standalone cluster using 2 worker nodes and 1 master node using docker && docker-compose.
+* We created a spark standalone cluster using 2 worker nodes and 1 master node
+  using docker && docker-compose.
 
 * Copied the resources necessary to run demo applications.
 
-* We ran a distributed application at home(just need enough cpu cores and RAM to do so).
+* We ran a distributed application at home(just need enough cpu cores and RAM to
+  do so).
 
 # Why a standalone cluster?
 
-* This is intended to be used for test purposes, basically a way of running distributed spark apps on your laptop or desktop.
+* This is intended to be used for test purposes, basically a way of running
+  distributed spark apps on your laptop or desktop.
 
-* This will be useful to use CI/CD pipelines for your spark apps(A really difficult and hot topic)
+* This will be useful to use CI/CD pipelines for your spark apps(A really
+  difficult and hot topic)
 
 # Steps to connect and use a pyspark shell interactively
 
-* Follow the steps to run the docker-compose file. You can scale this down if needed to 1 worker. 
+* Follow the steps to run the docker-compose file. You can scale this down if
+  needed to 1 worker. 
 
 ```sh
 docker-compose up --scale spark-worker=1
@@ -176,6 +194,8 @@ pyspark
 
 # What's left to do?
 
-* Right now to run applications in deploy-mode cluster is necessary to specify arbitrary driver port.
+* Right now to run applications in deploy-mode cluster is necessary to specify
+  arbitrary driver port.
 
-* The spark submit entry in the start-spark.sh is unimplemented, the submit used in the demos can be triggered from any worker
+* The spark submit entry in the start-spark.sh is unimplemented, the submit used
+  in the demos can be triggered from any worker

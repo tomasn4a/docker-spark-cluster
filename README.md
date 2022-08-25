@@ -22,7 +22,10 @@ The following steps will make you run your spark cluster's containers.
 
 * Docker installed
 
-* Docker compose  installed
+* Docker compose installed
+
+Docker Compose ships with Docker Desktop. You can install Docker Desktop from
+[here](https://docs.docker.com/desktop/)
 
 ## Build the image
 
